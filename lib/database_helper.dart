@@ -54,4 +54,5 @@ class DatabaseHelper {
     );
     return res.isNotEmpty ? res.first : null;
   }
+  
 }
