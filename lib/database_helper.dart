@@ -20,6 +20,9 @@ class DatabaseHelper {
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, filePath);
 
+    // Elimina la base de datos anterior (solo para desarrollo)
+    //await deleteDatabase(path);
+
     return await openDatabase(
       path,
       version: 1,
@@ -40,11 +43,7 @@ class DatabaseHelper {
           CREATE TABLE historial(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             usuario TEXT NOT NULL,
-            producto TEXT NOT NULL,
-            precio TEXT NOT NULL,
-            cantidad TEXT NOT NULL,
-            direccion TEXT NOT NULL,
-            fecha TEXT
+            pedido TEXT NOT NULL
           )
         ''');
       },
@@ -83,7 +82,7 @@ class DatabaseHelper {
     return await db.insert('usuarios', row);
   }
 
-  // Inserta un nuevo usuario
+  // Inserta un nuevo historial
   Future<int> insertHistorial(Map<String, dynamic> row) async {
     final db = await instance.database;
     return await db.insert('historial', row);

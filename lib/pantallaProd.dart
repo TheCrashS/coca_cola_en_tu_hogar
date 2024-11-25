@@ -515,7 +515,8 @@ class menuLateral extends StatelessWidget {
               ),
             ),
             onTap: () async {
-              List<Map<String, dynamic>>? historialData = await DatabaseHelper.instance.getDataHistorial(context.read<Usuario>().user);
+              final usuario = context.read<Usuario>().user;
+              List<Map<String, dynamic>>? historialData = await DatabaseHelper.instance.getDataHistorial(usuario);
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => PantallaReportesClientes(
                         pedidos: historialData ?? [],
@@ -695,19 +696,19 @@ class PantallaReportesClientes extends StatelessWidget {
             return Card(
               margin: const EdgeInsets.symmetric(vertical: 8),
               child: ListTile(
-                title: Text("Pedido #${pedido['idPedido']}"),
+                title: Text("Pedido #${pedido['id']}"),
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Cliente: ${pedido['cliente']}"),
-                    Text("Productos: ${pedido['productos']}"),
-                    Text("Cantidad: ${pedido['cantidad']}"),
+                    Text("Cliente: ${pedido['usuario']}"),
+                    Text("Pedido: ${pedido['pedido']}"),
+                    /* Text("Cantidad: ${pedido['cantidad']}"),
                     Text("Total: ${pedido['total']} Bs"),
                     Text("Fecha: ${pedido['fecha']}"),
-                    Text("Estado: ${pedido['estado']}"),
+                    Text("Estado: ${pedido['estado']}"), */
                   ],
                 ),
-                trailing: IconButton(
+                /* trailing: IconButton(
                   icon: const Icon(Icons.delete, color: Colors.red),
                   onPressed: () {
                     // Eliminar pedido (simulado)
@@ -717,7 +718,7 @@ class PantallaReportesClientes extends StatelessWidget {
                               Text('Pedido #${pedido['idPedido']} eliminado')),
                     );
                   },
-                ),
+                ), */
               ),
             );
           },

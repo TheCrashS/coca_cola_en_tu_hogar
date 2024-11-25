@@ -14,10 +14,7 @@ class Pantallacarrito extends StatefulWidget {
   State<Pantallacarrito> createState() => _PantallacarritoState();
 }
 
-
-
 class _PantallacarritoState extends State<Pantallacarrito> {
-
   @override
   Widget build(BuildContext context) {
     return Consumer<Carrito>(builder: (context, carrito, child) {
@@ -34,10 +31,8 @@ class _PantallacarritoState extends State<Pantallacarrito> {
       // Suponiendo que tienes datos del cliente, puedes obtenerlos de alguna manera
       // Si ya tienes una clase de cliente o los datos están en un Provider, usa eso.
       String nombreCliente = "";
-      String direccionCliente =
-          " "; 
-      String telefonoCliente =
-          " "; 
+      String direccionCliente = " ";
+      String telefonoCliente = " ";
 
       // Formato de la fecha
       String fechaPedido =
@@ -216,10 +211,6 @@ class _PantallacarritoState extends State<Pantallacarrito> {
                   "${pedido}IMPUESTO: ${carrito.impuesto.toStringAsFixed(2)}, "; */
               pedido = "${pedido}TOTAL: ${totalCarrito.toStringAsFixed(2)}, ";
 
-              //carlos
-              //123456
-
-
               String user = context.read<Usuario>().user;
               var userData = await DatabaseHelper.instance.getDataUser(user);
               String nombreData = userData?["nombre"].toString() ?? '';
@@ -236,10 +227,19 @@ class _PantallacarritoState extends State<Pantallacarrito> {
               String mensaje = pedido;
               String url = "https://wa.me/$celularData?text=$mensaje";
               //String url = "https://wa.me/$celular";
+              Map<String, dynamic> row = {
+                'usuario': user,
+                'pedido': mensaje,
+              };
+              final result = await DatabaseHelper.instance.insertHistorial(row);
+
               Uri urlSend = Uri.parse(url);
               if (!(await launchUrl(urlSend))) {
                 throw ("No se pudo enviar mensaje por WhatsApp");
               }
+              setState(() {
+                carrito.removeCarrito();
+              });
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.amberAccent, // Color de fondo del botón
