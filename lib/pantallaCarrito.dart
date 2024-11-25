@@ -225,7 +225,7 @@ class _PantallacarritoState extends State<Pantallacarrito> {
               // Vínculo para enviar el mensaje por WhatsApp
               String celular = "59167924911";
               String mensaje = pedido;
-              String url = "https://wa.me/$celularData?text=$mensaje";
+              String url = "https://wa.me/$celular?text=$mensaje";
               //String url = "https://wa.me/$celular";
               Map<String, dynamic> row = {
                 'usuario': user,
