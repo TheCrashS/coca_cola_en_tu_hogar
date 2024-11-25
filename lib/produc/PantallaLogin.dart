@@ -1,5 +1,7 @@
+import 'package:coca_cola_en_tu_hogar/main.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart'; // Para formatear la fecha
+import 'package:provider/provider.dart';
 import '../database_helper.dart'; // Importa tu helper para la base de datos
 import '../pantallaProd.dart'; // Pantalla de productos
 import '../pantallainicio.dart'; // Pantalla de registro
@@ -62,6 +64,9 @@ class _PantallaLoginState extends State<PantallaLogin> {
 
       if (user != null) {
         // Si el usuario existe, redirigir a PantallaProd
+        setState(() {
+          context.read<Usuario>().set(user['nombre']);
+        });
         print('Usuario encontrado: $nombre');
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(

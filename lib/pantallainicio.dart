@@ -93,7 +93,7 @@ class _RegistroUsuarioState extends State<PantallaInicio> {
     };
 
     // Insertamos los datos en la base de datos
-    int id = await dbHelper.insert(row);
+    int id = await dbHelper.insertUsuario(row);
 
     // Verificación: Imprime el ID de la fila insertada
     if (kDebugMode) {

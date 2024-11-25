@@ -1,9 +1,11 @@
 import 'dart:math';
 import 'package:coca_cola_en_tu_hogar/carrito/Carrito.dart';
+import 'package:coca_cola_en_tu_hogar/main.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:intl/intl.dart'; // Importamos para dar formato a la fecha
+import 'package:coca_cola_en_tu_hogar/database_helper.dart'; // Importa el helper de la base de datos
 
 class Pantallacarrito extends StatefulWidget {
   const Pantallacarrito({super.key});
@@ -12,7 +14,10 @@ class Pantallacarrito extends StatefulWidget {
   State<Pantallacarrito> createState() => _PantallacarritoState();
 }
 
+
+
 class _PantallacarritoState extends State<Pantallacarrito> {
+
   @override
   Widget build(BuildContext context) {
     return Consumer<Carrito>(builder: (context, carrito, child) {
@@ -28,8 +33,7 @@ class _PantallacarritoState extends State<Pantallacarrito> {
 
       // Suponiendo que tienes datos del cliente, puedes obtenerlos de alguna manera
       // Si ya tienes una clase de cliente o los datos están en un Provider, usa eso.
-      String nombreCliente =
-          " "; 
+      String nombreCliente = "";
       String direccionCliente =
           " "; 
       String telefonoCliente =
@@ -212,16 +216,25 @@ class _PantallacarritoState extends State<Pantallacarrito> {
                   "${pedido}IMPUESTO: ${carrito.impuesto.toStringAsFixed(2)}, "; */
               pedido = "${pedido}TOTAL: ${totalCarrito.toStringAsFixed(2)}, ";
 
+              //carlos
+              //123456
+
+
+              String user = context.read<Usuario>().user;
+              var userData = await DatabaseHelper.instance.getDataUser(user);
+              String nombreData = userData?["nombre"].toString() ?? '';
+              String direccionData = userData?["direccion"].toString() ?? '';
+              String celularData = userData?["celular"].toString() ?? '';
               // Agregar datos del cliente
-              pedido = "$pedido, Cliente: $nombreCliente, ";
-              pedido = "${pedido}Dirección: $direccionCliente, ";
-              pedido = "${pedido}Teléfono: $telefonoCliente, ";
+              pedido = "$pedido, Cliente: $nombreData, ";
+              pedido = "${pedido}Dirección: $direccionData, ";
+              pedido = "${pedido}Teléfono: $celularData, ";
               pedido = "${pedido}Fecha del Pedido: $fechaPedido, ";
 
               // Vínculo para enviar el mensaje por WhatsApp
               String celular = "59167924911";
               String mensaje = pedido;
-              String url = "https://wa.me/$celular?text=$mensaje";
+              String url = "https://wa.me/$celularData?text=$mensaje";
               //String url = "https://wa.me/$celular";
               Uri urlSend = Uri.parse(url);
               if (!(await launchUrl(urlSend))) {

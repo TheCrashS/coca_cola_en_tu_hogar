@@ -3,17 +3,26 @@ import 'package:coca_cola_en_tu_hogar/produc/PantallaLogin.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-void main() => runApp(
-  ChangeNotifierProvider(
-      create: (context) => Carrito(),
+void main() => runApp(MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => Carrito()),
+        ChangeNotifierProvider(create: (context) => Usuario())
+      ],
       child: const MyApp(),
-    )
-  //runApp(const MyApp());
-);
+    ));
+
+class Usuario extends ChangeNotifier {
+  
+  String _user = "";
+  String get user => _user;
+  void set(String data) {
+    _user = data;
+    notifyListeners();
+  }
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-  
 
   // This widget is the root of your application.
   @override

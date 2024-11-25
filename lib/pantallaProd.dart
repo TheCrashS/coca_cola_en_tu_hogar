@@ -1,4 +1,6 @@
 import 'package:coca_cola_en_tu_hogar/carrito/Carrito.dart' show Carrito;
+import 'package:coca_cola_en_tu_hogar/database_helper.dart';
+import 'package:coca_cola_en_tu_hogar/main.dart';
 import 'package:coca_cola_en_tu_hogar/pantallaCarrito.dart';
 import 'package:coca_cola_en_tu_hogar/produc/PantallaLogin.dart';
 import 'package:coca_cola_en_tu_hogar/produc/Productos.dart';
@@ -512,10 +514,11 @@ class menuLateral extends StatelessWidget {
                 color: Colors.red,
               ),
             ),
-            onTap: () {
+            onTap: () async {
+              List<Map<String, dynamic>>? historialData = await DatabaseHelper.instance.getDataHistorial(context.read<Usuario>().user);
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const PantallaReportesClientes(
-                        pedidos: [],
+                  builder: (context) => PantallaReportesClientes(
+                        pedidos: historialData ?? [],
                       )));
             },
           ),
