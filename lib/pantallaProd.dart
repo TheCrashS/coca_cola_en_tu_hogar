@@ -516,7 +516,8 @@ class menuLateral extends StatelessWidget {
             ),
             onTap: () async {
               final usuario = context.read<Usuario>().user;
-              List<Map<String, dynamic>>? historialData = await DatabaseHelper.instance.getDataHistorial(usuario);
+              List<Map<String, dynamic>>? historialData =
+                  await DatabaseHelper.instance.getDataHistorial(usuario);
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => PantallaReportesClientes(
                         pedidos: historialData ?? [],
@@ -531,13 +532,15 @@ class menuLateral extends StatelessWidget {
                 color: Colors.red,
               ),
             ),
-            onTap: () {
+            onTap: () async {
+              final usuario = context.read<Usuario>().user;
+              Map<String, dynamic>? userData = await DatabaseHelper.instance.getDataUser(usuario);
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const PantallaUsuario(
-                        nombre: '',
-                        direccion: '',
-                        celular: '',
-                        contrasena: '',
+                  builder: (context) => PantallaUsuario(
+                        nombre: userData?['nombre'],
+                        direccion: userData?['direccion'],
+                        celular: userData?['celular'],
+                        contrasena: userData?['contrasena'],
                       )));
             },
           ),
@@ -674,7 +677,8 @@ class PantallaProductos extends StatelessWidget {
     );
   }
 }
-// Pantala Reportes Clientes 
+
+// Pantala Reportes Clientes
 class PantallaReportesClientes extends StatelessWidget {
   final List<Map<String, dynamic>> pedidos;
 
@@ -761,8 +765,7 @@ class _PantallaUsuarioState extends State<PantallaUsuario> {
     //query a usuarios
     //resulta datos
 
-    //_nombreController = TextEditingController(text: resulta.nombre);
-    _nombreController = TextEditingController(text: 'javier');
+    _nombreController = TextEditingController(text: widget.nombre);
     _direccionController = TextEditingController(text: widget.direccion);
     _celularController = TextEditingController(text: widget.celular);
     _contrasenaController = TextEditingController(text: widget.contrasena);
