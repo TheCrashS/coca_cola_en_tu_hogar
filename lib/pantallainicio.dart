@@ -186,7 +186,7 @@ class _RegistroUsuarioState extends State<PantallaInicio> {
           // Fondo de pantalla
           Positioned.fill(
             child: Image.asset(
-              'assets/img/fondo.jpg',  // LOGO   
+              'assets/img/FONDO.jpg',  // LOGO   
               fit: BoxFit.cover,
             ),
           ),
