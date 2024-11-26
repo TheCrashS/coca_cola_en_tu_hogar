@@ -1,8 +1,10 @@
+import 'package:coca_cola_en_tu_hogar/main.dart';
 import 'package:coca_cola_en_tu_hogar/pantallaProd.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart'; // Para formatear la fecha
 import 'package:coca_cola_en_tu_hogar/database_helper.dart'; // Importa el helper de la base de datos
+import 'package:provider/provider.dart';
 import 'produc/PantallaLogin.dart';  // Asegúrate de importar la pantalla de login
 
 class PantallaInicio extends StatefulWidget {
@@ -107,6 +109,9 @@ class _RegistroUsuarioState extends State<PantallaInicio> {
         print('Usuario insertado correctamente: $insertedUser');
       }
       // Navegar a otra pantalla si es necesario
+      setState(() {
+          context.read<Usuario>().set(nombre);
+        });
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (context) => const PantallaProd(), // Asegúrate de tener esta clase definida

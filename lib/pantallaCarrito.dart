@@ -203,7 +203,7 @@ class _PantallacarritoState extends State<Pantallacarrito> {
                 double totalProducto = precioProducto * cantidadProducto;
 
                 pedido =
-                    "$pedido${value.nombre} CANTIDAD :. $precioProducto PRECIO TOTAL : ${totalProducto.toStringAsFixed(2)}, ****************************, ";
+                    "$pedido${value.nombre} CANTIDAD : $cantidadProducto PRECIO UNITARIO: $precioProducto PRECIO TOTAL : ${totalProducto.toStringAsFixed(2)}, ****************************, ";
               });
               /* pedido =
                   "${pedido}SUBTOTAL: ${carrito.subTotal.toStringAsFixed(2)}, ";
